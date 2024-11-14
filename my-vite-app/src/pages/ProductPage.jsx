@@ -52,7 +52,24 @@ const ProductPage = () => {
         alt={product.title}
       />
       <p>{product.description}</p>
-      <p>{parseFloat(product.price).toFixed(2)} SEK</p>
+
+      {/* Kontrollera om rabatterat pris finns och om det är lägre än fullpriset */}
+      {product.discountedPrice && product.discountedPrice < product.price ? (
+        <div>
+          {/* Visa det rabatterade priset först */}
+          <p style={{ fontWeight: "bold" }}>
+            {parseFloat(product.discountedPrice).toFixed(2)} SEK
+          </p>
+          {/* Visa fullpriset genomstruket */}
+          <p style={{ textDecoration: "line-through" }}>
+            {parseFloat(product.price).toFixed(2)} SEK
+          </p>
+        </div>
+      ) : (
+        // Om det inte finns ett rabatterat pris eller om det är lika med fullpriset, visa bara fullpriset
+        <p>{parseFloat(product.price).toFixed(2)} SEK</p>
+      )}
+
       <a href="/cart">Add to Cart</a>
     </div>
   );

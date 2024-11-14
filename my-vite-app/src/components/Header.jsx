@@ -1,20 +1,23 @@
+// src/components/Header.jsx
 import React from "react";
 import { Link } from "react-router-dom";
-import SearchBar from "./SearchBar"; // Importera SearchBar-komponenten
+import SearchBar from "./SearchBar"; // Default import
+import { CartIcon } from "./CartIcon"; // Importera CartIcon som named export
+import { useCart } from "../context/CartContext"; // Importera useCart
 
 const Header = () => {
+  const { cartItemCount, addToCart } = useCart(); // Använd cartItemCount från CartContext
+
   // Funktion som hanterar sökningen
   const handleSearch = (searchTerm) => {
     console.log("Sökterm:", searchTerm);
-    // Här kan du lägga till logik för att hantera sökningen,
-    // t.ex. filtrera produkter eller navigera till en söksida
   };
 
   return (
     <header>
       <h1>My Online Store</h1>
       <nav>
-        <ul>
+        <ul style={styles.navList}>
           <li>
             <Link to="/">Home</Link>
           </li>
@@ -26,10 +29,19 @@ const Header = () => {
           </li>
         </ul>
       </nav>
-      {/* Lägg till SearchBar under navigeringen */}
       <SearchBar onSearch={handleSearch} />
+      <CartIcon itemCount={cartItemCount} />
     </header>
   );
+};
+
+// Stilar för Header
+const styles = {
+  navList: {
+    listStyle: "none",
+    display: "flex",
+    gap: "15px",
+  },
 };
 
 export default Header;

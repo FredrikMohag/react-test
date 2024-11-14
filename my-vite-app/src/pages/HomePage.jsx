@@ -1,4 +1,3 @@
-// src/components/HomePage.jsx
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { apiUrl } from "../api/apiUrl"; // Importera bas-URL:en
@@ -51,19 +50,46 @@ const HomePage = () => {
         {products.length === 0 ? (
           <p>No products available.</p>
         ) : (
-          products.map((product) => (
-            <div key={product.id} className="product-item">
-              <img
-                src={product.image?.url || "/default-image.jpg"}
-                alt={product.title}
-                style={{ objectFit: "cover" }}
-              />
-              <h2>{product.title}</h2>
-              <p>{product.description}</p>
-              <p>{parseFloat(product.price).toFixed(2)} SEK</p>
-              <Link to={`/product/${product.id}`}>View Details</Link>
-            </div>
-          ))
+          products.map((product) => {
+            console.log("Product:", product); // För felsökning av produktdata
+
+            const price = parseFloat(product.price);
+            const discountedPrice = parseFloat(product.discountedPrice);
+
+            // Kontrollera om rabatterat pris finns och om det är lägre än fullpriset
+            const isDiscounted = discountedPrice && discountedPrice < price;
+
+            return (
+              <div key={product.id} className="product-item">
+                <img
+                  src={product.image?.url || "/default-image.jpg"}
+                  alt={product.title}
+                  style={{ objectFit: "cover" }}
+                />
+                <h2>{product.title}</h2>
+                <p>{product.description}</p>
+
+                {/* Om det finns ett rabatterat pris, visa det */}
+                {isDiscounted ? (
+                  <div>
+                    {/* Visa det rabatterade priset först */}
+                    <p style={{ fontWeight: "bold" }}>
+                      {discountedPrice.toFixed(2)} SEK
+                    </p>
+                    {/* Visa fullpriset genomstruket */}
+                    <p style={{ textDecoration: "line-through" }}>
+                      {price.toFixed(2)} SEK
+                    </p>
+                  </div>
+                ) : (
+                  // Om inget rabatterat pris finns, visa fullpriset utan att stryka det
+                  <p>{price.toFixed(2)} SEK</p>
+                )}
+
+                <Link to={`/product/${product.id}`}>View Details</Link>
+              </div>
+            );
+          })
         )}
       </div>
     </div>
