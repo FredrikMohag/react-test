@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { apiUrl } from "../api/apiUrl"; // Importera apiUrl från apiUrl.jsx
 
 const ProductPage = () => {
   const { productId } = useParams(); // Hämta produkt-ID från URL-parametrar
@@ -13,9 +14,7 @@ const ProductPage = () => {
       if (!productId) return; // Om det inte finns något produkt-ID, gör inget
 
       try {
-        const response = await fetch(
-          `https://v2.api.noroff.dev/online-shop/${productId}`
-        );
+        const response = await fetch(`${apiUrl}/${productId}`); // Använd apiUrl här
         if (!response.ok) {
           throw new Error("Failed to fetch product");
         }
@@ -53,8 +52,7 @@ const ProductPage = () => {
         alt={product.title}
       />
       <p>{product.description}</p>
-      <p>{product.price} SEK</p>
-      {/* Lägg till en länk tillbaka till hem-sidan eller en annan sida */}
+      <p>{parseFloat(product.price).toFixed(2)} SEK</p>
       <a href="/cart">Add to Cart</a>
     </div>
   );

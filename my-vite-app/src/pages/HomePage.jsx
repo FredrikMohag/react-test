@@ -1,44 +1,47 @@
+// src/components/HomePage.jsx
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { apiUrl } from "../api/apiUrl"; // Importera bas-URL:en
 
 const HomePage = () => {
-  const [products, setProducts] = useState([]); // Ta bort typdefinitionen
+  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Hämta produktdata från API
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("https://v2.api.noroff.dev/online-shop");
+        console.log("Using apiUrl:", apiUrl); // Kontrollera att apiUrl är korrekt
+        const response = await fetch(apiUrl);
         if (!response.ok) {
           throw new Error("Failed to fetch products");
         }
         const data = await response.json();
-        setProducts(data.data); // Sätt produkterna i state
+        console.log("Fetched data:", data); // Kontrollera datan som hämtas
+
+        setProducts(Array.isArray(data.data) ? data.data : []); // Kontrollera att data är en array
       } catch (error) {
-        setError(error); // Hantera fel
+        console.error("Error fetching products:", error); // Logga eventuella fel
+        setError(error);
       } finally {
-        setLoading(false); // Stäng loading när data är hämtad
+        setLoading(false);
       }
     };
 
     fetchProducts();
   }, []);
 
-  // Laddningsskärm
   if (loading) {
     return <p>Loading products...</p>;
   }
 
-  // Felhantering
   if (error) {
-    // Kontrollera om felet är en instans av Error
-    if (error instanceof Error) {
-      return <p>Error: {error.message}</p>;
-    } else {
-      return <p>An unknown error occurred</p>;
-    }
+    return (
+      <p>
+        Error:{" "}
+        {error instanceof Error ? error.message : "An unknown error occurred"}
+      </p>
+    );
   }
 
   return (
@@ -51,14 +54,13 @@ const HomePage = () => {
           products.map((product) => (
             <div key={product.id} className="product-item">
               <img
-                src={product.image?.url || "/default-image.jpg"} // Fallback om ingen bild finns
+                src={product.image?.url || "/default-image.jpg"}
                 alt={product.title}
-                style={{ objectFit: "cover" }} // Lägger till lite styling
+                style={{ objectFit: "cover" }}
               />
               <h2>{product.title}</h2>
               <p>{product.description}</p>
-              <p>{parseFloat(product.price).toFixed(2)} SEK</p>{" "}
-              {/* Omvandlar pris till tal och visar två decimaler */}
+              <p>{parseFloat(product.price).toFixed(2)} SEK</p>
               <Link to={`/product/${product.id}`}>View Details</Link>
             </div>
           ))
