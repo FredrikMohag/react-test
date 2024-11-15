@@ -4,7 +4,7 @@ export const CartIcon = ({ itemCount, iconSize = 30, badgeSize = 12 }) => {
   return (
     <div style={{ ...styles.cartIcon, width: iconSize, height: iconSize }}>
       <img
-        src="/cart-icon.png"
+        src="/my-new-app/src/assets/cart.png"
         alt="Cart"
         style={{ ...styles.icon, width: iconSize, height: iconSize }}
       />

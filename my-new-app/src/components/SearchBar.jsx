@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { apiUrl } from "../../../my-vite-app/src/api/apiUrl"; // Importera bas-URL:en
+import { apiUrl } from "../../../my-new-app/src/api/apiUrl"; // Importera bas-URL:en
 import debounce from "lodash.debounce";
 
 const SearchBar = () => {

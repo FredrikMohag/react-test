@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { apiUrl } from "../../../my-vite-app/src/api/apiUrl"; // Importera apiUrl från apiUrl.jsx
+import { apiUrl } from "../../../my-new-app/src/api/apiUrl"; // Importera apiUrl från apiUrl.jsx
 
 const ProductPage = () => {
   const { productId } = useParams(); // Hämta produkt-ID från URL-parametrar

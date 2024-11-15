@@ -12,8 +12,6 @@ function App() {
   return (
     <Router>
       <CartProvider>
-        {" "}
-        {/* Lägg till CartProvider här */}
         <Layout>
           <Routes>
             <Route path="/" element={<HomePage />} />
