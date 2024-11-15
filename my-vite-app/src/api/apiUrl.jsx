@@ -1,2 +1,2 @@
 // src/api/apiUrl.jsx
-export const apiUrl = "https://v2.api.noroff.dev/online-shop";
+export const apiUrl = "https://v2.api.noroff.dev/online-

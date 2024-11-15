@@ -2,10 +2,10 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer>
+    <footer style={styles.footer}>
       <p>&copy; 2024 My Store. All rights reserved.</p>
     </footer>
   );
 };
 
-export default Footer;
+// Stila
