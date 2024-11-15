@@ -8,4 +8,17 @@ const Footer = () => {
   );
 };
 
-// Stila
+// Stilar för Footer
+const styles = {
+  footer: {
+    padding: "10px",
+    backgroundColor: "#333",
+    color: "white",
+    textAlign: "center",
+    position: "absolute",
+    width: "100%",
+    bottom: "0",
+  },
+};
+
+export default Footer;

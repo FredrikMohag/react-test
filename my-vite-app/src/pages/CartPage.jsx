@@ -10,4 +10,4 @@ const CartPage = () => {
   );
 };
 
-ex
+export default CartPage; // Säkerställ att den här raden finns!

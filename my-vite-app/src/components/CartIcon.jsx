@@ -31,4 +31,16 @@ const styles = {
     display: "inline-block",
   },
   icon: {
-    displ
+    display: "block",
+  },
+  badge: {
+    position: "absolute",
+    top: "0",
+    right: "0",
+    backgroundColor: "red",
+    color: "white",
+    borderRadius: "50%",
+    textAlign: "center",
+    lineHeight: "1",
+  },
+};
