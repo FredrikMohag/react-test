@@ -75,4 +75,4 @@ const ProductPage = () => {
   );
 };
 
-export default ProductPage;
+export
