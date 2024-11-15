@@ -19,4 +19,13 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/product/:productId" element={<ProductPage />} />
             <Route path="/cart" element={<CartPage />} />
-            <Route path="/checkout-success" element={<CheckoutSucce
+            <Route path="/checkout-success" element={<CheckoutSuccessPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+          </Routes>
+        </Layout>
+      </CartProvider>
+    </Router>
+  );
+}
+
+export default App;

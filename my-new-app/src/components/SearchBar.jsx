@@ -109,4 +109,4 @@ const SearchBar = () => {
   );
 };
 
-expo
+export default SearchBar;

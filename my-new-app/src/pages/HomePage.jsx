@@ -96,4 +96,4 @@ const HomePage = () => {
   );
 };
 
-exp
+export default HomePage;
