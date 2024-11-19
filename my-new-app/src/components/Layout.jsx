@@ -1,17 +1,14 @@
-// src/components/Layout.jsx
-import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
-import "../../src/index.css"; // Se till att importera CSS
+import { Outlet } from "react-router-dom";
+import "../index.css";
 
-const Layout = ({ children }) => {
+export default function Layout() {
   return (
-    <div>
+    <>
       <Header />
-      <main>{children}</main>
+      <Outlet />
       <Footer />
-    </div>
+    </>
   );
-};
-
-export default Layout;
+}
