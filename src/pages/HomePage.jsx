@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { apiUrl } from "../../../my-new-app/src/api/apiUrl"; // Importera bas-URL:en
+import { apiUrl } from "../../src/api/apiUrl"; // Importera bas-URL:en
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);

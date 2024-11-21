@@ -34,12 +34,11 @@ html {
 
 /* Footer */
 .footer {
-  position: fixed; /* Fixerad position */
   bottom: 0; /* Fäst footern vid botten */
   left: 0; /* Fäst footern vid vänster kant */
   width: 100%; /* Gör så att footern täcker hela bredden */
   padding: 10px; /* Padding för lite utrymme inuti footern */
-  background-color: #333; /* Bakgrundsfärg */
+  background-color: #a59e9e; /* Bakgrundsfärg */
   color: white; /* Textfärg */
   text-align: center; /* Centrera texten */
   box-sizing: border-box; /* Säkerställ att padding ingår i bredden */
