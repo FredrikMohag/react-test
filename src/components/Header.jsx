@@ -2,8 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { CartIcon } from "./CartIcon";
+import { useStore } from "../store/cart"; // Ändra till named import här
 
 const Header = () => {
+  // Hämta cart från store
+  const cart = useStore((state) => state.cart);
+
+  // Räkna antalet produkter i kundvagnen
+  const itemCount = cart.reduce((total, item) => total + item.quantity, 0);
+
   const handleSearch = (searchTerm) => {
     console.log("Sökterm:", searchTerm);
   };
@@ -17,7 +24,7 @@ const Header = () => {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/cart">Cart</Link>
+            <Link to="/checkout">Cart</Link>
           </li>
           <li>
             <Link to="/contact">Contact</Link>
@@ -26,10 +33,8 @@ const Header = () => {
       </nav>
       <SearchBar onSearch={handleSearch} />
       <div className="cartContainer">
-        <CartIcon itemCount={0} />
-        <button onClick={() => console.log("Add product to cart")}>
-          Add Product to Cart
-        </button>
+        {/* Passa itemCount som prop */}
+        <CartIcon itemCount={itemCount} />
       </div>
     </header>
   );

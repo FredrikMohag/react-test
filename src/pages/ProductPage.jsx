@@ -1,48 +1,59 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { apiUrl } from "../../src/api/apiUrl"; // Importera apiUrl från apiUrl.jsx
+import { apiUrl } from "../../src/api/apiUrl";
+import { useStore } from "../store/cart"; // Importera useStore
 
 const ProductPage = () => {
-  const { productId } = useParams(); // Hämta produkt-ID från URL-parametrar
-  const [product, setProduct] = useState(null); // Förvara produktdata
+  const { productId } = useParams();
+  const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Hämta produktdata för en enskild produkt
+  // Hämta addToCart-funktionen från store
+  const addToCart = useStore((state) => state.addToCart);
+
   useEffect(() => {
     const fetchProduct = async () => {
-      if (!productId) return; // Om det inte finns något produkt-ID, gör inget
+      if (!productId) return;
 
       try {
-        const response = await fetch(`${apiUrl}/${productId}`); // Använd apiUrl här
+        const response = await fetch(`${apiUrl}/${productId}`);
         if (!response.ok) {
           throw new Error("Failed to fetch product");
         }
         const data = await response.json();
-        setProduct(data.data); // Sätt produktdata i state
+        setProduct(data.data);
       } catch (error) {
-        setError(error); // Sätt error om det händer något
+        setError(error);
       } finally {
-        setLoading(false); // Stäng loading när datan har hämtats
+        setLoading(false);
       }
     };
 
     fetchProduct();
-  }, [productId]); // Kör om när produkt-ID ändras
+  }, [productId]);
 
   if (loading) {
     return <p>Loading product...</p>;
   }
 
   if (error) {
-    // Felhantering för error
     return <p>Error: {error.message || "An unknown error occurred"}</p>;
   }
 
-  // Om ingen produkt hittades
   if (!product) {
     return <p>Product not found.</p>;
   }
+
+  // Hantera "Add to Cart"
+  const handleAddToCart = () => {
+    addToCart({
+      id: product.id,
+      title: product.title,
+      price: product.discountedPrice || product.price,
+      image: product.image,
+    });
+  };
 
   return (
     <div>
@@ -53,24 +64,22 @@ const ProductPage = () => {
       />
       <p>{product.description}</p>
 
-      {/* Kontrollera om rabatterat pris finns och om det är lägre än fullpriset */}
       {product.discountedPrice && product.discountedPrice < product.price ? (
         <div>
-          {/* Visa det rabatterade priset först */}
           <p style={{ fontWeight: "bold" }}>
             {parseFloat(product.discountedPrice).toFixed(2)} SEK
           </p>
-          {/* Visa fullpriset genomstruket */}
           <p style={{ textDecoration: "line-through" }}>
             {parseFloat(product.price).toFixed(2)} SEK
           </p>
         </div>
       ) : (
-        // Om det inte finns ett rabatterat pris eller om det är lika med fullpriset, visa bara fullpriset
         <p>{parseFloat(product.price).toFixed(2)} SEK</p>
       )}
 
-      <a href="/cart">Add to Cart</a>
+      <button onClick={handleAddToCart} style={{ marginTop: "10px" }}>
+        Add to Cart
+      </button>
     </div>
   );
 };

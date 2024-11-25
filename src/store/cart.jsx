@@ -1,4 +1,7 @@
-const useStore = create((set) => ({
+// cart.jsx
+import { create } from "zustand";
+
+export const useStore = create((set) => ({
   cart: JSON.parse(localStorage.getItem("cart")) || [],
 
   addToCart: (newItem) =>
@@ -21,24 +24,21 @@ const useStore = create((set) => ({
       const existingItem = state.cart.find((item) => item.id === itemId);
 
       if (existingItem && existingItem.quantity > 1) {
-        // Decrease quantity by one
         const newCart = state.cart.map((item) =>
           item.id === itemId ? { ...item, quantity: item.quantity - 1 } : item
         );
         localStorage.setItem("cart", JSON.stringify(newCart));
         return { cart: newCart };
       } else {
-        // Remove the item from the cart
         const newCart = state.cart.filter((item) => item.id !== itemId);
         localStorage.setItem("cart", JSON.stringify(newCart));
         return { cart: newCart };
       }
     }),
+
   clearCart: () =>
     set(() => {
       localStorage.setItem("cart", JSON.stringify([]));
       return { cart: [] };
     }),
 }));
-
-export default useStore;
