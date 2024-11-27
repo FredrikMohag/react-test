@@ -9,30 +9,24 @@ export const CartIcon = ({ iconSize = 30, badgeSize = 12 }) => {
 
   return (
     <div
-      className="cart-icon"
-      style={{ width: iconSize, height: iconSize, position: "relative" }}
+      className="relative flex items-center justify-center"
+      style={{ width: iconSize, height: iconSize }}
     >
       <img
         src={cartImage} // Använd den importerade bilden
         alt="Cart"
-        className="icon"
+        className="block"
         style={{ width: iconSize, height: iconSize }}
       />
       {itemCount > 0 && (
         <span
-          className="badge"
+          className="absolute bg-red-500 text-white text-xs font-bold flex items-center justify-center rounded-full"
           style={{
-            fontSize: badgeSize,
             width: badgeSize * 2,
             height: badgeSize * 2,
-            lineHeight: `${badgeSize * 2}px`,
-            textAlign: "center",
-            backgroundColor: "red",
-            color: "white",
-            borderRadius: "50%",
-            position: "absolute",
-            top: 0,
-            right: 0,
+            fontSize: badgeSize - 4,
+            top: -badgeSize / 2,
+            right: -badgeSize / 2,
           }}
         >
           {itemCount}

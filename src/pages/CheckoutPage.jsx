@@ -19,47 +19,57 @@ export default function CheckOutPage() {
   };
 
   return (
-    <div className="checkout-container">
-      <h2>Your Cart</h2>
+    <div className="max-w-6xl mx-auto px-4 py-12">
+      <h2 className="text-3xl font-semibold mb-8 text-center">Your Cart</h2>
 
-      <div className="cart-table">
-        <div className="cart-header">
-          <div className="header-item">Product</div>
-          <div className="header-item">Price</div>
-          <div className="header-item">Quantity</div>
-          <div className="header-item">Subtotal</div>
+      <div className="overflow-x-auto bg-white shadow-md rounded-lg">
+        <div className="flex border-b-2 border-gray-200">
+          <div className="flex-1 p-4 text-lg font-medium text-gray-700">
+            Product
+          </div>
+          <div className="w-32 p-4 text-lg font-medium text-gray-700">
+            Price
+          </div>
+          <div className="w-32 p-4 text-lg font-medium text-gray-700">
+            Quantity
+          </div>
+          <div className="w-32 p-4 text-lg font-medium text-gray-700">
+            Subtotal
+          </div>
         </div>
 
-        <div className="cart-items">
+        <div className="divide-y divide-gray-200">
           {cart.map((item) => (
-            <div key={item.id} className="cart-item">
-              {/* Product */}
-              <div className="cart-item-image">
+            <div key={item.id} className="flex items-center p-4">
+              {/* Produktbild och titel */}
+              <div className="flex-1 flex items-center">
                 <img
                   src={item.image?.url || "/default-image.jpg"}
                   alt={item.title}
-                  className="item-image"
+                  className="w-16 h-16 object-cover rounded-md mr-4"
                 />
-                <div className="cart-item-title">{item.title}</div>
+                <span className="text-lg font-medium text-gray-800">
+                  {item.title}
+                </span>
               </div>
 
-              {/* Price */}
-              <div className="cart-item-price">
+              {/* Pris */}
+              <div className="w-32 text-lg text-gray-700">
                 ${parseFloat(item.price).toFixed(2)}
               </div>
 
               {/* Quantity and Controls */}
-              <div className="cart-item-quantity-controls">
-                <div className="cart-item-quantity">{item.quantity}</div>
-                <div className="item-controls">
+              <div className="w-32 flex items-center justify-center space-x-2">
+                <span className="text-lg">{item.quantity}</span>
+                <div className="space-x-2">
                   <button
-                    className="add-item-button"
+                    className="bg-green-500 text-white p-2 rounded-full hover:bg-green-600 focus:outline-none"
                     onClick={() => handleAddToCart(item)}
                   >
                     +
                   </button>
                   <button
-                    className="remove-item-button"
+                    className="bg-red-500 text-white p-2 rounded-full hover:bg-red-600 focus:outline-none"
                     onClick={() => handleRemoveFromCart(item.id)}
                   >
                     -
@@ -68,7 +78,7 @@ export default function CheckOutPage() {
               </div>
 
               {/* Subtotal */}
-              <div className="cart-item-subtotal">
+              <div className="w-32 text-lg font-medium text-gray-700">
                 ${parseFloat(item.price * item.quantity).toFixed(2)}
               </div>
             </div>
@@ -76,21 +86,29 @@ export default function CheckOutPage() {
         </div>
       </div>
 
-      <div className="checkout-summary">
-        <div className="total">
-          <span className="total-text">Total: </span>
-          <span className="total-price">${total}</span>
+      <div className="mt-8 flex flex-col items-end space-y-4">
+        {/* Total */}
+        <div className="flex text-xl font-semibold text-gray-800">
+          <span className="mr-4">Total:</span>
+          <span className="text-2xl text-green-600">${total}</span>
         </div>
 
-        <div className="checkout-buttons">
+        <div className="flex space-x-4">
+          {/* Clear Cart Button */}
           {cart.length > 0 && (
-            <button className="clear-cart-button" onClick={clearCart}>
+            <button
+              className="bg-red-600 text-white px-6 py-2 rounded-md shadow-md hover:bg-red-700 focus:outline-none"
+              onClick={clearCart}
+            >
               Clear Cart
             </button>
           )}
 
+          {/* Checkout Button */}
           <Link to={`/checkoutSuccess`}>
-            <button className="checkout-cart-button">Checkout</button>
+            <button className="bg-indigo-600 text-white px-6 py-2 rounded-md shadow-md hover:bg-indigo-700 focus:outline-none">
+              Checkout
+            </button>
           </Link>
         </div>
       </div>

@@ -5,6 +5,7 @@ import CheckoutPage from "./pages/CheckoutPage";
 import CheckoutSuccessPage from "./pages/CheckoutSuccessPage";
 import ContactPage from "./pages/ContactPage";
 import Layout from "./components/Layout";
+import "./index.css";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/product/:productId" element={<ProductPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/checkout-success" element={<CheckoutSuccessPage />} />
+        <Route path="/checkoutSuccess" element={<CheckoutSuccessPage />} />
         <Route path="/contact" element={<ContactPage />} />
       </Route>
     </Routes>
