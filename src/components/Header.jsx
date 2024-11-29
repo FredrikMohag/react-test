@@ -6,7 +6,7 @@ import { CartIcon } from "./CartIcon";
 const Header = () => {
   return (
     <header className="bg-gradient-to-r from-purple-700 to-indigo-700 text-white shadow-md">
-      <div className="max-w-screen-xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="max-w-screen-xl mx-auto px-6 py-4 flex items-center">
         {/* Logo */}
         <Link
           to="/"
@@ -14,6 +14,13 @@ const Header = () => {
         >
           My Store
         </Link>
+
+        {/* Centered Search Bar */}
+        <div className="flex-1 mx-8">
+          <SearchBar
+            onSearch={(searchTerm) => console.log("Sökterm:", searchTerm)}
+          />
+        </div>
 
         {/* Navbar */}
         <nav className="flex items-center space-x-8">
@@ -36,13 +43,6 @@ const Header = () => {
             <CartIcon />
           </Link>
         </nav>
-      </div>
-
-      {/* Centered Search Bar */}
-      <div className="flex justify-center py-4">
-        <SearchBar
-          onSearch={(searchTerm) => console.log("Sökterm:", searchTerm)}
-        />
       </div>
     </header>
   );
