@@ -1,6 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useStore } from "../store/cart"; // Se till att importera din zustand store här
 
 const CheckoutSuccessPage = () => {
+  // Hämta funktionen för att tömma kundvagnen från store
+  const clearCart = useStore((state) => state.clearCart);
+
+  // Använd useEffect för att tömma kundvagnen när sidan renderas
+  useEffect(() => {
+    clearCart(); // Töm kundvagnen
+  }, [clearCart]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-400 via-blue-500 to-purple-600 flex items-center justify-center">
       <div className="text-center text-white space-y-6 px-4 md:px-10">

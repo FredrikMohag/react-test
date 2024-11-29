@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { apiUrl } from "../../src/api/apiUrl";
 import { useStore } from "../store/cart"; // Importera useStore
-import { StarIcon } from "@heroicons/react/solid"; // Heroicons för stjärnbetyg
+import { StarIcon } from "@heroicons/react/24/solid"; // Heroicons för stjärnbetyg
 
 const ProductPage = () => {
   const { productId } = useParams();
@@ -18,7 +18,7 @@ const ProductPage = () => {
       if (!productId) return;
 
       try {
-        const response = await fetch(`${apiUrl}/${productId}`); // Korrigering här
+        const response = await fetch(`${apiUrl}/${productId}`);
         if (!response.ok) {
           throw new Error("Failed to fetch product");
         }
@@ -82,20 +82,14 @@ const ProductPage = () => {
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-12">
-      {/* Produktinformation */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Produktbild */}
         <img
           src={product.image?.url || "/default-image.jpg"}
           alt={product.title}
           className="w-full h-auto object-cover rounded-md shadow-md"
         />
-
-        {/* Produktdetaljer */}
         <div className="flex flex-col">
           <h1 className="text-3xl font-bold mb-4">{product.title}</h1>
-
-          {/* Genomsnittligt betyg */}
           <div className="flex items-center mb-4">
             {[...Array(Math.round(averageRating))].map((_, i) => (
               <StarIcon
@@ -106,10 +100,7 @@ const ProductPage = () => {
             ))}
             <p className="ml-2 text-gray-600">{averageRating} / 5</p>
           </div>
-
           <p className="text-gray-700 mb-4">{product.description}</p>
-
-          {/* Pris */}
           {product.discountedPrice &&
           product.discountedPrice < product.price ? (
             <div className="mb-6">
@@ -125,8 +116,6 @@ const ProductPage = () => {
               {parseFloat(product.price).toFixed(2)} SEK
             </p>
           )}
-
-          {/* Lägg till i kundvagn */}
           <button
             onClick={handleAddToCart}
             className="bg-indigo-600 text-white px-6 py-3 rounded-md shadow-md hover:bg-indigo-700 transition"
@@ -135,8 +124,6 @@ const ProductPage = () => {
           </button>
         </div>
       </div>
-
-      {/* Recensioner */}
       <div className="mt-12">
         <h2 className="text-2xl font-bold mb-6">Reviews</h2>
         {product.reviews && product.reviews.length > 0 ? (
