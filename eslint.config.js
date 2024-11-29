@@ -34,4 +34,5 @@ export default [
         { allowConstantExport: true },
       ],
     },
-  
+  },
+];
