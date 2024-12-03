@@ -1,8 +1,7 @@
-// src/pages/HomePage.jsx
-
 import { useEffect, useState } from "react";
 import { apiUrl } from "../../src/api/apiUrl";
 import ProductAll from "../components/ProductAll"; // Importera den nya komponenten
+import SaleBanner from "../components/SaleBanner"; // Importera SaleBanner
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
@@ -53,7 +52,9 @@ const HomePage = () => {
 
   return (
     <div className="max-w-screen-xl mx-auto px-4 py-8">
-      {/* Använd den nya komponenten för att visa produkterna */}
+      {/* Lägg till SaleBanner högst upp */}
+      <SaleBanner />
+      {/* Visa produkterna */}
       <ProductAll products={products} />
     </div>
   );
