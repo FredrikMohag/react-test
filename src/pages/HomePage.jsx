@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { apiUrl } from "../../src/api/apiUrl";
 import ProductAll from "../components/ProductAll"; // Importera den nya komponenten
-import SaleBanner from "../components/SaleBanner"; // Importera SaleBanner
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
@@ -11,20 +10,28 @@ const HomePage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        console.log("Using apiUrl:", apiUrl);
+        console.log("Using apiUrl:", apiUrl); // Logga URL för API-anropet
         const response = await fetch(apiUrl);
         if (!response.ok) {
           throw new Error("Failed to fetch products");
         }
         const data = await response.json();
-        console.log("Fetched data:", data);
+        console.log("Fetched data:", data); // Logga den hämtade datan
 
-        setProducts(Array.isArray(data.data) ? data.data : []);
+        // Kontrollera om datan är i rätt format
+        if (Array.isArray(data.data)) {
+          setProducts(data.data);
+          console.log("Set products state:", data.data); // Logga när state uppdateras med produkter
+        } else {
+          console.warn("Data is not in the expected format:", data); // Logga om datan inte är som förväntat
+          setProducts([]);
+        }
       } catch (error) {
-        console.error("Error fetching products:", error);
+        console.error("Error fetching products:", error); // Logga eventuella fel
         setError(error);
       } finally {
         setLoading(false);
+        console.log("Loading finished"); // Logga när laddningen är klar
       }
     };
 
@@ -32,6 +39,7 @@ const HomePage = () => {
   }, []);
 
   if (loading) {
+    console.log("Loading products..."); // Logga medan produkterna laddas
     return (
       <div className="flex justify-center items-center h-screen">
         <p className="text-lg font-medium text-gray-600">Loading products...</p>
@@ -40,6 +48,7 @@ const HomePage = () => {
   }
 
   if (error) {
+    console.log("Error occurred:", error); // Logga om ett fel inträffade
     return (
       <div className="flex justify-center items-center h-screen">
         <p className="text-lg font-medium text-red-600">
@@ -50,11 +59,10 @@ const HomePage = () => {
     );
   }
 
+  console.log("Rendering products:", products); // Logga produkterna som renderas
   return (
     <div className="max-w-screen-xl mx-auto px-4 py-8">
-      {/* Lägg till SaleBanner högst upp */}
-      <SaleBanner />
-      {/* Visa produkterna */}
+      {/* Visa produkterna utan SaleBanner */}
       <ProductAll products={products} />
     </div>
   );

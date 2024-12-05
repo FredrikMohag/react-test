@@ -1,11 +1,17 @@
-import React from "react";
 import { useStore } from "../store/cart";
-import cartImage from "../assets/cart.png"; // Importera bilden direkt
+import cartImage from "../assets/cart.png";
+import PropTypes from "prop-types";
 
 export const CartIcon = ({ iconSize = 30, badgeSize = 12 }) => {
-  // Hämta cart från store för att räkna antalet produkter
-  const cart = useStore((state) => state.cart);
-  const itemCount = cart.reduce((total, item) => total + item.quantity, 0);
+  // Hämta varukorgen från state
+  const cart = useStore((state) => state.cart || []); // Fallback till tom array
+
+  // Beräkna antalet produkter i varukorgen
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+  // Logga ut state för debugging
+  console.log("Cart content:", cart);
+  console.log("Total items:", totalItems);
 
   return (
     <div
@@ -13,14 +19,14 @@ export const CartIcon = ({ iconSize = 30, badgeSize = 12 }) => {
       style={{ width: iconSize, height: iconSize }}
     >
       <img
-        src={cartImage} // Använd den importerade bilden
+        src={cartImage}
         alt="Cart"
         className="block"
         style={{ width: iconSize, height: iconSize }}
       />
-      {itemCount > 0 && (
+      {totalItems > 0 && (
         <span
-          className="absolute bg-red-500 text-white text-xs font-bold flex items-center justify-center rounded-full"
+          className="absolute bg-red-500 text-white font-bold flex items-center justify-center rounded-full"
           style={{
             width: badgeSize * 2,
             height: badgeSize * 2,
@@ -29,9 +35,15 @@ export const CartIcon = ({ iconSize = 30, badgeSize = 12 }) => {
             right: -badgeSize / 2,
           }}
         >
-          {itemCount}
+          {totalItems}
         </span>
       )}
     </div>
   );
+};
+
+// Prop-types validering
+CartIcon.propTypes = {
+  iconSize: PropTypes.number, // Storlek på ikon
+  badgeSize: PropTypes.number, // Storlek på badge
 };

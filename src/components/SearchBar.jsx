@@ -10,10 +10,12 @@ const SearchBar = () => {
 
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value);
+    console.log("Search term changed:", e.target.value); // Loggar söktermen
   };
 
   useEffect(() => {
     const fetchProducts = async () => {
+      console.log("Fetching products..."); // Loggar när produkterna hämtas
       try {
         const response = await fetch(apiUrl);
         if (!response.ok) {
@@ -21,6 +23,7 @@ const SearchBar = () => {
         }
         const result = await response.json();
         setProducts(Array.isArray(result.data) ? result.data : []);
+        console.log("Fetched products:", result.data); // Loggar resultatet av API-anropet
       } catch (error) {
         console.error("Error fetching products:", error);
         setProducts([]);
@@ -32,6 +35,7 @@ const SearchBar = () => {
 
   useEffect(() => {
     const filterProducts = debounce(() => {
+      console.log("Filtering products..."); // Loggar när filtrering pågår
       if (searchTerm && Array.isArray(products)) {
         const results = products
           .filter((product) =>
@@ -39,8 +43,10 @@ const SearchBar = () => {
           )
           .slice(0, 4);
         setFilteredProducts(results);
+        console.log("Filtered products:", results); // Loggar de filtrerade produkterna
       } else {
         setFilteredProducts([]);
+        console.log("No search term or products found");
       }
     }, 300);
 
@@ -52,6 +58,7 @@ const SearchBar = () => {
   }, [searchTerm, products]);
 
   const handleProductClick = () => {
+    console.log("Product clicked, clearing search term");
     setSearchTerm("");
   };
 

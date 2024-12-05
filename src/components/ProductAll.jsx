@@ -2,17 +2,32 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const ProductAll = ({ products }) => {
+  // Loggar hela produktlistan vid rendering
+  console.log("ProductAll rendered with products:", products);
+
   return (
     <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {products.length === 0 ? (
-        <p className="col-span-full text-center text-gray-600">
-          No products available.
-        </p>
+        <>
+          {console.log("No products available")}
+          <p className="col-span-full text-center text-gray-600">
+            No products available.
+          </p>
+        </>
       ) : (
         products.map((product) => {
           const price = parseFloat(product.price);
           const discountedPrice = parseFloat(product.discountedPrice);
           const isDiscounted = discountedPrice && discountedPrice < price;
+
+          // Loggar data för varje produkt som renderas
+          console.log("Rendering product:", {
+            id: product.id,
+            title: product.title,
+            price,
+            discountedPrice,
+            isDiscounted,
+          });
 
           return (
             <div
@@ -54,6 +69,11 @@ const ProductAll = ({ products }) => {
                 <Link
                   to={`/product/${product.id}`}
                   className="block text-center bg-indigo-600 text-white rounded-lg py-2 hover:bg-indigo-500 transition-colors duration-300"
+                  onClick={() =>
+                    console.log(
+                      `Clicked View Details for product id: ${product.id}`
+                    )
+                  }
                 >
                   View Details
                 </Link>

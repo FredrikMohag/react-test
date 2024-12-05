@@ -14,6 +14,7 @@ const ContactPage = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
+    console.log(`Changed ${name} to: ${value}`); // Logga ändring av inputfält
   };
 
   // Funktion för att validera formuläret
@@ -37,6 +38,7 @@ const ContactPage = () => {
       newErrors.body = "Body must be at least 3 characters.";
     }
 
+    console.log("Validation errors:", newErrors); // Logga valideringsfel
     return newErrors;
   };
 
@@ -46,11 +48,11 @@ const ContactPage = () => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
+      console.log("Form submission prevented due to errors:", validationErrors); // Logga om formuläret inte skickas
     } else {
       setErrors({});
       alert("Form submitted successfully!");
-      // Här kan du skicka data till en server eller hantera formuläret
-      console.log("Form data:", form);
+      console.log("Form data:", form); // Logga formdata när formuläret skickas
       setForm({ fullName: "", subject: "", email: "", body: "" });
     }
   };

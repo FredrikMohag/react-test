@@ -11,11 +11,18 @@ export default function CheckOutPage() {
     .toFixed(2);
 
   const handleAddToCart = (item) => {
+    console.log("Adding to cart:", item); // Loggar när ett item läggs till i varukorgen
     addToCart(item); // Lägg till item utan att skapa nytt objekt
   };
 
   const handleRemoveFromCart = (itemId) => {
+    console.log("Removing from cart, item ID:", itemId); // Loggar när ett item tas bort från varukorgen
     removeFromCart(itemId); // Antingen minska quantity eller ta bort objektet
+  };
+
+  const handleClearCart = () => {
+    console.log("Clearing the cart..."); // Loggar när varukorgen rensas
+    clearCart();
   };
 
   return (
@@ -98,7 +105,7 @@ export default function CheckOutPage() {
           {cart.length > 0 && (
             <button
               className="bg-red-600 text-white px-6 py-2 rounded-md shadow-md hover:bg-red-700 focus:outline-none"
-              onClick={clearCart}
+              onClick={handleClearCart} // Loggar när användaren rensar varukorgen
             >
               Clear Cart
             </button>

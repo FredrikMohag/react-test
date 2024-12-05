@@ -7,6 +7,7 @@ const CheckoutSuccessPage = () => {
 
   // Använd useEffect för att tömma kundvagnen när sidan renderas
   useEffect(() => {
+    console.log("Clearing the cart..."); // Logga när kundvagnen töms
     clearCart(); // Töm kundvagnen
   }, [clearCart]);
 

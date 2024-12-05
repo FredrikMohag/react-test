@@ -1,6 +1,11 @@
 import React from "react";
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
+  // Logga ut årtalet för felsökning
+  console.log("Current year in footer:", currentYear);
+
   return (
     <footer className="mt-auto bg-gray-900 text-gray-300 py-6">
       <div className="max-w-screen-xl mx-auto px-4 text-center">
@@ -90,7 +95,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <p className="text-sm text-gray-500">
-          &copy; {new Date().getFullYear()} My Store. All rights reserved.
+          &copy; {currentYear} My Store. All rights reserved.
         </p>
       </div>
     </footer>
